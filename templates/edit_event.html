@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="login-container">
+        <form class="login-form" action="/edit_event/{{ event.id }}/" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="name">Nazwa wydarzenia:</label><br>
+                <input type="text" id="name" name="name" value="{{ event.name }}"><br>
+            </div>
+            <div class="form-group">
+                <label for="description">Opis:</label><br>
+                <textarea id="description" name="description">{{ event.description }}</textarea><br>
+            </div>
+            <div class="form-group">
+                <label for="hall">Hala:</label><br>
+                <select id="hall" name="hall">
+                    {% for hall in halls %}
+                        <option value="{{ hall.id }}" {% if event.hall.id == hall.id %} selected {% endif %}>{{ hall.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="sport">Sport:</label><br>
+                <select id="sport" name="sport">
+                    {% for sport in sports %}
+                        <option value="{{ sport.id }}" {% if event.sport.id == sport.id %} selected {% endif %}>{{ sport.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="price">Cena:</label><br>
+                <input type="text" id="price" name="price" value="{{ event.price }}"><br>
+            </div>
+            <div class="form-group">
+                <label for="date">Data:</label><br>
+                <input type="date" id="date" name="date" value="{{ event.date }}"><br>
+            </div>
+            <button type="submit">Zatwierdź zmiany</button>
+        </form>
+    </div>
+{% endblock %}

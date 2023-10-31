@@ -1,0 +1,168 @@
+.menu-list {
+    display: flex;
+    justify-content: flex-start;
+    list-style-type: none;
+    padding: 0;
+    margin-left: 30px;
+    margin-top: 15px;
+    font-size: 22px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.panel {
+    background: linear-gradient(rgba(142, 65, 180, 0.89), rgba(102, 23, 131, 0.47));
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 50px;
+    width: 100%;
+    border-radius: 50px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+li {
+    margin-right: 20px;
+}
+
+li:nth-last-child(2) {
+    margin-left: auto;
+}
+
+li:last-child {
+    margin-left: 10px;
+}
+
+a {
+    font-weight: bold;
+    margin-right: 20px;
+    color: #281801;
+}
+
+.background-image {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("images/Basketball_gym.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.7;
+    z-index: -1;
+}
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5%;
+    height: auto;
+    font-size: 20px;
+}
+
+.login-form {
+    width: auto;
+    padding: 30px;
+    border-radius: 40px;
+    background-color: #f9f9f9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.login-form label {
+    color: #3b1448;
+}
+
+.login-form input[type="text"],
+.login-form input[type="password"] {
+    width: auto;
+    padding: 15px;
+    margin: 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.login-form button {
+    background-color: #3b1448;
+    color: #fff;
+    border: solid;
+    padding: 10px 20px;
+    border-radius: 20px;
+    margin-top: 10px;
+}
+
+.event-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 50px;
+}
+
+.event-block {
+    background-color: #f9f9f9;
+    border: 5px solid #3b1448;
+    border-radius: 35px;
+    padding: 20px;
+    width: 300px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.event-block h1 {
+    color: #3b1448;
+    margin-bottom: 10px;
+}
+
+.details-button {
+    background-color: #3b1448;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    margin-top: 10px;
+}
+
+.description {
+    display: none;
+}
+
+.event-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 50px;
+}
+
+.event-table th,
+.event-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.event-table th {
+    background-color: #f9f9f9;
+    color: #3b1448;
+}
+
+.event-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.event-table tr:hover {
+    background-color: #f9f9f9;
+}
+
+.join-button {
+    background-color: #3b1448;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+}
+

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="event-list">
+    {% for event in events|slice:":5" %}
+    <div class="event-block">
+        <h1>{{ event.name }}</h1>
+        <p><strong>Hala:</strong> {{ event.hall.name }}</p>
+        <p><strong>Sport:</strong> {{ event.sport.name }}</p>
+        <p><strong>Cena:</strong> {{ event.price }}</p>
+        <p><strong>Data:</strong> {{ event.date }}</p>
+        <button type="button" class="details-button" onclick="toggleDescription({{ forloop.counter }})">Pokaż szczegóły</button>
+        <p class="description" id="description{{ forloop.counter }}" style="display: none;">{{ event.description }}</p>
+        <a href="{% url 'edit_event' event.id %}"><button class="details-button">Edytuj</button></a>
+        <a href="{% url 'delete_event' event.id %}"><button class="details-button">Usuń</button></a>
+    </div>
+    {% endfor %}
+</div>
+
+<script>
+    function toggleDescription(id) {
+        var description = document.getElementById('description' + id);
+        if (description.style.display === 'none') {
+            description.style.display = 'block';
+        } else {
+            description.style.display = 'none';
+        }
+    }
+</script>
+{% endblock %}

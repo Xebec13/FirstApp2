@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="login-container">
+        <form class="login-form" action="/add_hall/" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="name" style="color: #3b1448;">Nazwa hali:</label><br>
+                <input type="text" id="name" name="name"><br>
+            </div>
+            <div class="form-group">
+                <label for="address" style="color: #3b1448;">Adres:</label><br>
+                <input type="text" id="address" name="address"><br>
+            </div>
+            <div class="form-group">
+                <label for="sports" style="color: #3b1448;">Dostępne sporty:</label><br>
+                <select id="sports" name="sports">
+                    {% for sport in sports %}
+                        <option value="{{ sport.id }}">{{ sport.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="details-button">Dodaj halę</button>
+        </form>
+    </div>
+{% endblock %}

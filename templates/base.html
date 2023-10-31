@@ -1,0 +1,30 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+    <title>Wynajem Hali</title>
+</head>
+<body>
+<div class="background-image"></div>
+<div class="panel">
+    <ul class="menu-list">
+        <li><a href='/'>Strona Główna</a></li>
+        <li><a href="/join_event/">Dołacz do wydarzenia</a></li>
+        <li><a href="/show_event/">Znajdz Wydarzenia</a></li>
+        <li><a href="/add_sport/">TEST ADD SPORT</a></li>
+        <li><a href="/add_hall/">TEST ADD HALLa</a></li>
+        <li><a href="/logout/">Wyloguj</a></li>
+        <li><a href="/login/">Logowanie</a></li>
+        <li><a href="/create_user/">Rejestracja</a></li>
+
+    </ul>
+</div>
+
+<div>{% block content %}
+{% endblock %}</div>
+
+</body>
+</html>

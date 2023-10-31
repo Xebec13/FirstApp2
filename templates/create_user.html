@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="login-container">
+        <form class="login-form" action="/create_user/" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="username" style="color: #3b1448;">Nazwa użytkownika:</label><br>
+                <input type="text" id="username" name="username"><br>
+            </div>
+            <div class="form-group">
+                <label for="password" style="color: #3b1448;">Hasło:</label><br>
+                <input type="password" id="password" name="password"><br>
+            </div>
+            <div class="form-group">
+                <label for="confirm_password" style="color: #3b1448;">Potwierdź hasło:</label><br>
+                <input type="password" id="confirm_password" name="confirm_password"><br>
+            </div>
+            <button type="submit">Utwórz użytkownika</button>
+        </form>
+    </div>
+{% endblock %}
