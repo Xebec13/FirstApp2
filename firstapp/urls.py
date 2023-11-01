@@ -32,5 +32,9 @@ urlpatterns = [
     path('show_event/', views.ShowEventView.as_view(), name='show_event'),
     path('join_event/', views.JoinEventView.as_view(), name='join_event'),
     path('edit_event/<int:event_id>/', views.EditEventView.as_view(), name='edit_event'),
-    path('delete_event/<int:event_id>/', views.DeleteEventView.as_view(), name='delete_event')
+    path('delete_event/<int:event_id>/', views.DeleteEventView.as_view(), name='delete_event'),
+    path('like_event/<int:event_id>/', views.LikeEventView.as_view(), name='like_event'),
+    path('dislike_event/<int:event_id>/', views.DislikeEventView.as_view(), name='dislike_event'),
+    path('login/create_user/', views.CreateUserView.as_view()),
+    path('add_comment/<int:event_id>/', views.AddCommentView.as_view(), name='add_comment'),
 ]

@@ -1,0 +1,5 @@
+<form method="post" action="{% url 'add_comment' event.id %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Dodaj komentarz</button>
+</form>

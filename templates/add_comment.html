@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+<form method="post" action="{% url 'add_comment' event.id %}" class="comment-form">
+    {% csrf_token %}
+    <label for="comment_text" class="comment-label">Twój komentarz:</label><br>
+    <textarea id="comment_text" name="comment_text" class="comment-textarea" rows="4" cols="50"></textarea><br>
+    <button type="submit" class="comment-button">Dodaj komentarz</button>
+</form>
+{% endblock %}

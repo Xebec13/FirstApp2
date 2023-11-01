@@ -1,15 +1,19 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse
 from django.views import View
 from django.contrib.auth.models import User
-from first.models import Sport, Hall, Event
+from first.models import Sport, Hall, Event, Comment, Like, Dislike
 
 
 # Create your views here.
 class IndexView(View):
     def get(self, request):
-        return render(request, "base.html")
+        recent_events = Event.objects.order_by('-id')[:3]
+        halls = Hall.objects.all()
+
+        return render(request, 'base.html', {'recent_events': recent_events, 'halls': halls})
 
 
 class LoginView(View):
@@ -26,6 +30,7 @@ class LoginView(View):
             return redirect('index')
         else:
             return render(request, 'login_page.html', {'error': 'Błędne dane logowania. Spróbuj ponownie.'})
+
 
 class LogoutView(View):
     def get(self, request):
@@ -50,9 +55,12 @@ class CreateUserView(View):
             return render(request, 'base.html')
 
 
+class AddSportView(LoginRequiredMixin, View):
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('login')  # 'login' to nazwa twojego adresu URL dla strony logowania
+        return super().dispatch(request, *args, **kwargs)
 
-
-class AddSportView(View):
     def get(self, request):
         return render(request, 'add_sport.html')
 
@@ -66,8 +74,12 @@ class AddSportView(View):
         return redirect('index')
 
 
+class AddHallView(LoginRequiredMixin, View):
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('login')  # 'login' to nazwa twojego adresu URL dla strony logowania
+        return super().dispatch(request, *args, **kwargs)
 
-class AddHallView(View):
     def get(self, request):
         sports = Sport.objects.all()
         return render(request, 'add_hall.html', {'sports': sports})
@@ -82,8 +94,12 @@ class AddHallView(View):
         return redirect('index')
 
 
+class AddEventView(LoginRequiredMixin, View):
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('login')  # 'login' to nazwa twojego adresu URL dla strony logowania
+        return super().dispatch(request, *args, **kwargs)
 
-class AddEventView(View):
     def get(self, request):
         halls = Hall.objects.all()
         sports = Sport.objects.all()
@@ -107,6 +123,11 @@ class AddEventView(View):
 
 
 class JoinEventView(LoginRequiredMixin, View):
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('login')  # 'login' to nazwa twojego adresu URL dla strony logowania
+        return super().dispatch(request, *args, **kwargs)
+
     def get(self, request):
         events = Event.objects.all()
         return render(request, 'join_event.html', {'events': events})
@@ -114,7 +135,7 @@ class JoinEventView(LoginRequiredMixin, View):
     def post(self, request):
         event_id = request.POST.get('event')
         user_id = request.user.id if request.user.is_authenticated else None
-        user = request.user#User.objects.get(pk=user_id)
+        user = request.user  # User.objects.get(pk=user_id)
         if user_id:
 
             try:
@@ -130,29 +151,14 @@ class JoinEventView(LoginRequiredMixin, View):
             except Event.DoesNotExist:
                 events = Event.objects.all()
                 return render(request, 'join_event.html', {'events': events})
-        else:
-            username = "Guest"
-            try:
-                event = Event.objects.get(pk=event_id)
-                if event.users.filter(username=username).exists():
-                    events = Event.objects.all()
-                    return render(request, 'join_event.html', {'events': events})
-                else:
-                    event.users.add(username)
-                    event.save()
-                    events = Event.objects.all()
-                    return render(request, 'join_event.html', {'events': events})
-            except Event.DoesNotExist:
-                events = Event.objects.all()
-                return render(request, 'join_event.html', {'events': events})
 
 
-class ShowEventView(View):
-    def get(self, request):
-        events = Event.objects.order_by('-id')[:5]
-        return render(request, 'show_event.html', {'events': events})
+class EditEventView(LoginRequiredMixin, View):
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('login')  # 'login' to nazwa twojego adresu URL dla strony logowania
+        return super().dispatch(request, *args, **kwargs)
 
-class EditEventView(View):
     def get(self, request, event_id):
         event = get_object_or_404(Event, pk=event_id)
         halls = Hall.objects.all()
@@ -180,11 +186,76 @@ class EditEventView(View):
         return render(request, 'show_event.html', {'events': events})
 
 
-class DeleteEventView(View):
+class DeleteEventView(LoginRequiredMixin, View):
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('login')  # 'login' to nazwa twojego adresu URL dla strony logowania
+        return super().dispatch(request, *args, **kwargs)
+
     def get(self, request, event_id):
         try:
             event = Event.objects.get(pk=event_id)
             event.delete()
         except Event.DoesNotExist:
             pass
+        return redirect('show_event')
+
+
+class AddCommentView(LoginRequiredMixin, View):
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('login')  # 'login' to nazwa twojego adresu URL dla strony logowania
+        return super().dispatch(request, *args, **kwargs)
+
+    def post(self, request, event_id):
+        event = get_object_or_404(Event, pk=event_id)
+        text = request.POST.get('comment_text')
+        if text:
+            Comment.objects.create(event=event, user=request.user, text=text)
+        return redirect('event_detail', event_id=event_id)
+
+
+class LikeEventView(LoginRequiredMixin, View):
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('login')  # 'login' to nazwa twojego adresu URL dla strony logowania
+        return super().dispatch(request, *args, **kwargs)
+    def post(self, request, event_id):
+        event = get_object_or_404(Event, pk=event_id)
+        like, created = Like.objects.get_or_create(event=event, user=request.user)
+        if not created:
+            like.delete()
+        return redirect(reverse('show_event'))
+
+
+class DislikeEventView(LoginRequiredMixin, View):
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('login')  # 'login' to nazwa twojego adresu URL dla strony logowania
+        return super().dispatch(request, *args, **kwargs)
+    def post(self, request, event_id):
+        event = get_object_or_404(Event, pk=event_id)
+        dislike, created = Dislike.objects.get_or_create(event=event, user=request.user)
+        if not created:
+            dislike.delete()
+        return redirect(reverse('show_event'))
+
+
+class ShowEventView(View):
+    def get(self, request):
+        events = Event.objects.order_by('-id')[:5]
+        likes = {}
+        dislikes = {}
+        for event in events:
+            likes[event.id] = event.likes.count()
+            dislikes[event.id] = event.dislikes.count()
+        return render(request, 'show_event.html', {'events': events, 'likes': likes, 'dislikes': dislikes})
+
+
+class AddCommentView(View):
+    def post(self, request, event_id):
+        event = get_object_or_404(Event, pk=event_id)
+        text = request.POST.get('comment')
+        if text:
+            Comment.objects.create(event=event, user=request.user, text=text)
         return redirect('show_event')

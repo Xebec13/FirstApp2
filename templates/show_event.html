@@ -1,30 +1,56 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="event-list">
-    {% for event in events|slice:":5" %}
-    <div class="event-block">
-        <h1>{{ event.name }}</h1>
-        <p><strong>Hala:</strong> {{ event.hall.name }}</p>
-        <p><strong>Sport:</strong> {{ event.sport.name }}</p>
-        <p><strong>Cena:</strong> {{ event.price }}</p>
-        <p><strong>Data:</strong> {{ event.date }}</p>
-        <button type="button" class="details-button" onclick="toggleDescription({{ forloop.counter }})">Pokaż szczegóły</button>
-        <p class="description" id="description{{ forloop.counter }}" style="display: none;">{{ event.description }}</p>
-        <a href="{% url 'edit_event' event.id %}"><button class="details-button">Edytuj</button></a>
-        <a href="{% url 'delete_event' event.id %}"><button class="details-button">Usuń</button></a>
+    <div class="event-list">
+        {% for event in events|slice:":5" %}
+            <div class="event-block">
+                <h1 style="color: rgb(42,18,35)">{{ event.name }}</h1>
+                <p><strong>Hala:</strong> {{ event.hall.name }}</p>
+                <p><strong>Sport:</strong> {{ event.sport.name }}</p>
+                <p><strong>Cena:</strong> {{ event.price }}</p>
+                <p><strong>Data:</strong> {{ event.date }}</p>
+                <p style="color:green; font-weight: bold">Like: {{ event.likes.count }}
+                    <form method="post" action="{% url 'like_event' event.id %}">
+                        {% csrf_token %}
+                        <button class="details-button" style="color: white; background-color: rgb(24,178,27); margin-left: 10px;">Like</button>
+                    </form>
+                </p>
+                <p style="color:#940a0a; font-weight: bold">Dislike: {{ event.dislikes.count }}
+                    <form method="post" action="{% url 'dislike_event' event.id %}">
+                        {% csrf_token %}
+                        <button class="details-button" style="color: white; background-color: rgb(148,10,10);">Nie lubię tego</button>
+                    </form>
+                </p>
+                <button type="button" class="details-button" style="color: #e1c7ea; background-color: rgb(10,38,53);" onclick="toggleDescription({{ forloop.counter }})">Pokaż szczegóły</button>
+                <p class="description" id="description{{ forloop.counter }}" style="display: none; color: white;">{{ event.description }}</p>
+                <button class="details-button" style="color: white; background-color: rgb(27, 24, 178);" onclick="toggleCommentForm({{ forloop.counter }})">Dodaj komentarz</button>
+                <form id="commentForm{{ forloop.counter }}" method="post" action="{% url 'add_comment' event.id %}" style="display: none;">
+                    {% csrf_token %}
+                    <label for="comment">Twój komentarz:</label><br>
+                    <textarea id="comment" name="comment" rows="4" cols="20"></textarea><br><br>
+                    <input type="submit" value="Dodaj komentarz">
+                </form>
+            </div>
+        {% endfor %}
     </div>
-    {% endfor %}
-</div>
 
-<script>
-    function toggleDescription(id) {
-        var description = document.getElementById('description' + id);
-        if (description.style.display === 'none') {
-            description.style.display = 'block';
-        } else {
-            description.style.display = 'none';
+    <script>
+        function toggleDescription(id) {
+            var description = document.getElementById('description' + id);
+            if (description.style.display === 'none') {
+                description.style.display = 'block';
+            } else {
+                description.style.display = 'none';
+            }
         }
-    }
-</script>
+
+        function toggleCommentForm(id) {
+            var commentForm = document.getElementById('commentForm' + id);
+            if (commentForm.style.display === 'none') {
+                commentForm.style.display = 'block';
+            } else {
+                commentForm.style.display = 'none';
+            }
+        }
+    </script>
 {% endblock %}

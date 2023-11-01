@@ -1,20 +1,25 @@
+.container {
+    background-image: url("images/frankie-lopez-YgquWrEYqOk-unsplash.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
 .menu-list {
     display: flex;
     justify-content: flex-start;
     list-style-type: none;
     padding: 0;
-    margin-left: 30px;
-    margin-top: 15px;
-    font-size: 22px;
+    margin-left: 50px;
+    margin-top: 20px;
+    font-size: 28px;
     font-family: Arial, Helvetica, sans-serif;
 }
 
 .panel {
-    background: linear-gradient(rgba(142, 65, 180, 0.89), rgba(102, 23, 131, 0.47));
+    background: linear-gradient(rgba(109, 95, 110, 0.93), rgb(70, 72, 103));
     position: fixed;
     top: 0;
     left: 0;
-    height: 50px;
+    height: 70px;
     width: 100%;
     border-radius: 50px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
@@ -36,20 +41,7 @@ a {
     font-weight: bold;
     margin-right: 20px;
     color: #281801;
-}
-
-.background-image {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url("images/Basketball_gym.png");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    opacity: 0.7;
-    z-index: -1;
+    text-decoration: none;
 }
 
 .login-container {
@@ -65,7 +57,7 @@ a {
     width: auto;
     padding: 30px;
     border-radius: 40px;
-    background-color: #f9f9f9;
+    background-color: rgba(154, 147, 185, 0.89);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -80,56 +72,59 @@ a {
     width: auto;
     padding: 15px;
     margin: 0;
-    border: 1px solid #ccc;
+    border: 5px solid #d596ec;
     border-radius: 4px;
 }
 
 .login-form button {
-    background-color: #3b1448;
+    text-align: center;
+    background-color: #9a93b9;
     color: #fff;
     border: solid;
-    padding: 10px 20px;
+    padding: 20px 20px;
     border-radius: 20px;
-    margin-top: 10px;
+    margin-top: 15px;
 }
-
 .event-list {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 20px;
-    margin-top: 50px;
+    margin-top: -70px;
+
 }
 
 .event-block {
-    background-color: #f9f9f9;
-    border: 5px solid #3b1448;
-    border-radius: 35px;
-    padding: 20px;
+    background-color: rgba(154, 147, 185, 0.89);
+    border: 15px solid #464867;
+    border-radius: 50px;
+    padding: 15px;
     width: 300px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    margin-top: 8%;
+    text-align: center;
+
 }
 
 .event-block h1 {
     color: #3b1448;
-    margin-bottom: 10px;
+    margin-top: 10px;
 }
 
 .details-button {
-    background-color: #3b1448;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 20px;
+    background-color: #ebe0ef;
+    color: #ebe0ef;
+    border: solid #464867;
+    padding: 15px 20px;
+    border-radius: 30px;
     margin-top: 10px;
 }
 
 .description {
-    display: none;
+    display: flex;
+    justify-content: center;
 }
 
 .event-table {
@@ -140,29 +135,164 @@ a {
 
 .event-table th,
 .event-table td {
-    border: 1px solid #ddd;
+    border: 1px solid rgba(248, 246, 246, 0.22);
     padding: 8px;
     text-align: left;
 }
 
 .event-table th {
-    background-color: #f9f9f9;
-    color: #3b1448;
+    background-color: rgba(154, 147, 185, 0.89);
+    color: #0e0a0a;
+    font-weight: bold;
 }
 
 .event-table tr:nth-child(even) {
-    background-color: #f2f2f2;
+    background-color: rgba(248, 246, 246, 0.22);
 }
 
 .event-table tr:hover {
-    background-color: #f9f9f9;
+    background-color: rgb(154, 147, 185);
 }
 
 .join-button {
-    background-color: #3b1448;
-    color: #fff;
+    background-color: #464867;
+    color: rgba(154, 147, 185, 0.89);
     border: none;
     padding: 10px 20px;
     border-radius: 20px;
 }
+
+.hall-list {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    gap: 20px;
+    margin-top: 1px;
+}
+
+.hall-block {
+    background-color: rgba(154, 147, 185, 0.89);
+    border: 15px solid #464867;
+    border-radius: 50px;
+    padding: 30px;
+    width: 350px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: -1%;
+}
+
+.hall-block h3 {
+    color: #3b1448;
+    margin-bottom: 10px;
+    text-align: left;
+    margin-left: 20px;
+}
+
+.hall-block img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 20px;
+    margin-top: 10px;
+}
+.txt1 {
+    display: inline-block;
+    color: rgb(235, 224, 239);
+    font-size: 35px;
+    font-style: italic;
+    font-weight: bolder;
+    background-color: #464867;
+    background-size: 50px;
+    border-radius: 10px; /* Dodana właściwość zaokrąglająca krawędzie */
+}
+.card-title {
+  color: #262626;
+  font-size: 1.5em;
+  line-height: normal;
+  font-weight: 700;
+  margin-bottom: 0.5em;
+}
+
+.small-desc {
+  font-size: 1em;
+  font-weight: 400;
+  line-height: 1.5em;
+  color: #452c2c;
+}
+
+.small-desc {
+  font-size: 1em;
+}
+
+.go-corner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  width: 2em;
+  height: 2em;
+  overflow: hidden;
+  top: 0;
+  right: 0;
+  background: linear-gradient(135deg, #6293c8, #384c6c);
+  border-radius: 0 4px 0 32px;
+}
+
+.go-arrow {
+  margin-top: -4px;
+  margin-right: -4px;
+  color: white;
+  font-family: courier, sans;
+}
+
+.card {
+  display: block;
+  position: relative;
+  max-width: 300px;
+  max-height: 320px;
+  background-color: #f2f8f9;
+  border-radius: 10px;
+  padding: 2em 1.2em;
+  margin: 12px;
+  text-decoration: none;
+  z-index: 0;
+  overflow: hidden;
+  background: linear-gradient(to bottom, rgba(102, 103, 128, 0.78), #9a93b9);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.card:before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  top: -16px;
+  right: -16px;
+  background: linear-gradient(135deg, #364a60, #384c6c);
+  height: 32px;
+  width: 32px;
+  border-radius: 32px;
+  transform: scale(1);
+  transform-origin: 50% 50%;
+  transition: transform 0.35s ease-out;
+}
+
+.card:hover:before {
+  transform: scale(28);
+}
+
+.card:hover .small-desc {
+  transition: all 0.5s ease-out;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.card:hover .card-title {
+  transition: all 0.5s ease-out;
+  color: #ffffff;
+}
+
+
+
+
 

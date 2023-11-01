@@ -7,24 +7,100 @@
     <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
     <title>Wynajem Hali</title>
 </head>
-<body>
-<div class="background-image"></div>
-<div class="panel">
-    <ul class="menu-list">
-        <li><a href='/'>Strona Główna</a></li>
-        <li><a href="/join_event/">Dołacz do wydarzenia</a></li>
-        <li><a href="/show_event/">Znajdz Wydarzenia</a></li>
-        <li><a href="/add_sport/">TEST ADD SPORT</a></li>
-        <li><a href="/add_hall/">TEST ADD HALLa</a></li>
-        <li><a href="/logout/">Wyloguj</a></li>
-        <li><a href="/login/">Logowanie</a></li>
-        <li><a href="/create_user/">Rejestracja</a></li>
+<body class="container">
+<header>
+    <div class="panel">
+        <ul class="menu-list">
+            <li><a href='/'>
+                <img src="{% static 'images/basketball1.png' %}" alt='Logo Strony Głównej'
+                     style="height: 60px; width: 75px;margin-top: -15%;margin-left: -10%"/>
+            </a></li>
+            <li><a href="/join_event/">Dołacz do wydarzenia</a></li>
+            <li><a href="/show_event/">Znajdz Wydarzenia</a></li>
+            <li><a href="/add_event/">Zorganizuj grę</a></li>
+            {% if user.is_authenticated %}
+                <li>Witaj {{ user }}</li>
+                <li><a href="/logout/">Wyloguj</a></li>
+            {% else %}
+                <li><a href="/login/">Logowanie</a></li>
+            {% endif %}
+            <li><a href="/create_user/">Rejestracja</a></li>
+        </ul>
+    </div>
+</header>
+{% block content %}
+    <p class="txt1" style="margin-top: 5%; text-align: center">Nadchodzące Wydarzenia:</p>
+    <div class="event-list">
+        {% for event in recent_events %}
+            <div class="event-block">
+                <h1 style="color: rgb(42,18,35)">{{ event.name }}</h1>
+                <p><strong>Hala:</strong> {{ event.hall.name }}</p>
+                <p><strong>Sport:</strong> {{ event.sport.name }}</p>
+                <p><strong>Cena:</strong> {{ event.price }}</p>
+                <p><strong>Data:</strong> {{ event.date }}</p>
+                <p><strong>Ilość zapisanych osób:</strong> {{ event.users.count }}</p>
+                <p style="color:green; font-weight: bold">Like: {{ event.likes.count }}</p>
+                <p style="color:#940a0a; font-weight: bold">Dislike: {{ event.dislikes.count }}</p>
+                <h3>Komentarze użytkowników:</h3>
+                <ul>
+                    {% for comment in event.comments.all %}
+                        <li>{{ comment.text }} - {{ comment.user.username }} - {{ comment.created_at }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
 
-    </ul>
-</div>
-
-<div>{% block content %}
-{% endblock %}</div>
+        {% endfor %}
+    </div>
+    <p class="txt1">Nasze obiekty sportowe:</p>
+    <div class="hall-list">
+        <div class="hall-block">
+            <h1>Jakaś Hala</h1>
+            <img style="height: 80%; width: auto" src="{% static "images/Sala.jpg" %}"/>
+        </div>
+        <div class="hall-block">
+            <h1>AAA Center</h1>
+            <img src="{% static "images/Hala2.jpg" %}"/>
+        </div>
+        <div class="hall-block">
+            <h1>Hala Koło</h1>
+            <img src="{% static "images/Hala.jpg" %}"/>
+        </div>
+    </div>
+    <p class="txt1">Wszystkie Sporty w Jednym miejscu:</p>
+    <div class="hall-list">
+        <div class="hall-block">
+            <h1>Koszykówka</h1>
+            <img style="height: 80%; width: auto" src="{% static "images/Kosz.jpg" %}"/>
+        </div>
+        <div class="hall-block">
+            <h1>Piłka Nożna</h1>
+            <img src="{% static "images/Piłka nożna.jpeg" %}"/>
+        </div>
+        <div class="hall-block">
+            <h1>Siatkówka</h1>
+            <img src="{% static "images/Siatkowka.jpg" %}"/>
+        </div>
+        <div class="hall-block">
+            <h1>Taniec</h1>
+            <img src="{% static "images/Taniec.jpg" %}"/>
+        </div>
+    </div>
+    <a href="add_hall" style="text-decoration: none; color: inherit;">
+        <div class="card">
+            <p class="card-title">Zostań Organizatorem</p>
+            <p class="small-desc">
+                WSZYSTKIE OBIEKTY SPORTOWE W JEDNYM MIEJSCU
+                Wyszukaj, znajdź i zarezerwuj dowolny obiekt sportowy za pomocą kilku kliknięć.
+                Dostęp do obiektów sportowych w Twojej okolicy na wyciągnięcie ręki.
+                Kliknij i Zostań organizatorem
+            </p>
+            <div class="go-corner">
+                <div class="go-arrow">→</div>
+            </div>
+        </div>
+    </a>
+    </div>
+{% endblock %}
 
 </body>
 </html>
