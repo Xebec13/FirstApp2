@@ -189,7 +189,7 @@ class EditEventView(LoginRequiredMixin, View):
 class DeleteEventView(LoginRequiredMixin, View):
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
-            return redirect('login')  # 'login' to nazwa twojego adresu URL dla strony logowania
+            return redirect('login')
         return super().dispatch(request, *args, **kwargs)
 
     def get(self, request, event_id):
