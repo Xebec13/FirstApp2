@@ -44,7 +44,7 @@
                 <h3>Komentarze użytkowników:</h3>
                 <ul>
                     {% for comment in event.comments.all %}
-                        <li>{{ comment.text }} - {{ comment.user.username }} - {{ comment.created_at }}</li>
+                        <li><i>{{ comment.text }} - {{ comment.user.username }} - {{ comment.created_at }}</i></li>
                     {% endfor %}
                 </ul>
             </div>

@@ -253,6 +253,10 @@ class ShowEventView(View):
 
 
 class AddCommentView(View):
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('login')  # 'login' to nazwa twojego adresu URL dla strony logowania
+        return super().dispatch(request, *args, **kwargs)
     def post(self, request, event_id):
         event = get_object_or_404(Event, pk=event_id)
         text = request.POST.get('comment')
